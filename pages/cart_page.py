@@ -25,8 +25,13 @@ class CartPage(BasePage):
     def verify_cart_page(self):
         expect(self.cart_title).to_have_text("Your Cart")
 
+    
     def get_cart_item_count(self):
+
+        expect(self.cart_items.first).to_be_visible()
+
         return self.cart_items.count()
+
 
     def verify_product_in_cart(self, product_name):
         expect(

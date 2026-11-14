@@ -48,23 +48,23 @@ def test_remove_product_from_cart(logged_in_page):
 
     assert cart.get_cart_item_count() == 0
 
-
 @pytest.mark.regression
 @pytest.mark.cart
 def test_cart_with_multiple_products(logged_in_page):
 
     inventory = InventoryPage(logged_in_page)
 
-    inventory.add_product_to_cart(
-        "Sauce Labs Backpack"
-    )
+    inventory.add_product_to_cart("Sauce Labs Backpack")
+    inventory.verify_cart_badge(1)
 
-    inventory.add_product_to_cart(
-        "Sauce Labs Bike Light"
-    )
+    inventory.add_product_to_cart("Sauce Labs Bike Light")
+    inventory.verify_cart_badge(2)
 
     inventory.open_cart()
 
     cart = CartPage(logged_in_page)
 
+    cart.verify_cart_page()
+
     assert cart.get_cart_item_count() == 2
+

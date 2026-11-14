@@ -47,9 +47,13 @@ class InventoryPage(BasePage):
             has_text=product_name
         )
 
-        product.locator(
-            "button"
-        ).click()
+        add_button = product.locator("button")
+
+        expect(add_button).to_have_text("Add to cart")
+
+        add_button.click()
+
+        expect(add_button).to_have_text("Remove")
 
     def open_cart(self):
         self.cart_icon.click()
