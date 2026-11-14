@@ -1,0 +1,70 @@
+
+import pytest
+
+from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
+
+
+@pytest.mark.smoke
+@pytest.mark.cart
+def test_add_product_and_verify_cart(logged_in_page):
+
+    inventory = InventoryPage(logged_in_page)
+
+    inventory.add_product_to_cart(
+        "Sauce Labs Backpack"
+    )
+
+    inventory.open_cart()
+
+    cart = CartPage(logged_in_page)
+
+    cart.verify_cart_page()
+
+    cart.verify_product_in_cart(
+        "Sauce Labs Backpack"
+    )
+
+    assert cart.get_cart_item_count() == 1
+
+
+@pytest.mark.regression
+@pytest.mark.cart
+def test_remove_product_from_cart(logged_in_page):
+
+    inventory = InventoryPage(logged_in_page)
+
+    inventory.add_product_to_cart(
+        "Sauce Labs Backpack"
+    )
+
+    inventory.open_cart()
+
+    cart = CartPage(logged_in_page)
+
+    cart.remove_product(
+        "Sauce Labs Backpack"
+    )
+
+    assert cart.get_cart_item_count() == 0
+
+
+@pytest.mark.regression
+@pytest.mark.cart
+def test_cart_with_multiple_products(logged_in_page):
+
+    inventory = InventoryPage(logged_in_page)
+
+    inventory.add_product_to_cart(
+        "Sauce Labs Backpack"
+    )
+
+    inventory.add_product_to_cart(
+        "Sauce Labs Bike Light"
+    )
+
+    inventory.open_cart()
+
+    cart = CartPage(logged_in_page)
+
+    assert cart.get_cart_item_count() == 2
