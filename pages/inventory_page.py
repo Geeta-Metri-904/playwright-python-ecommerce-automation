@@ -41,19 +41,20 @@ class InventoryPage(BasePage):
         self.sort_dropdown.select_option(option)
 
     def add_product_to_cart(self, product_name):
+
         product = self.page.locator(
             ".inventory_item"
         ).filter(
             has_text=product_name
         )
 
-        add_button = product.locator("button")
+        product.locator(
+            "button"
+        ).click()
 
-        expect(add_button).to_have_text("Add to cart")
-
-        add_button.click()
-
-        expect(add_button).to_have_text("Remove")
+        expect(
+            product.locator("button")
+        ).to_have_text("Remove")
 
     def open_cart(self):
         self.cart_icon.click()

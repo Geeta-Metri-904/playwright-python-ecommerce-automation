@@ -34,19 +34,34 @@ def test_remove_product_from_cart(logged_in_page):
 
     inventory = InventoryPage(logged_in_page)
 
-    inventory.add_product_to_cart(
-        "Sauce Labs Backpack"
-    )
+    # Add product
+    inventory.add_product_to_cart("Sauce Labs Backpack")
 
+    # Verify cart badge before opening cart
+    inventory.verify_cart_badge(1)
+
+    print("Product added successfully")
+
+    # Open cart
     inventory.open_cart()
 
     cart = CartPage(logged_in_page)
 
-    cart.remove_product(
-        "Sauce Labs Backpack"
-    )
+    # Verify cart page
+    cart.verify_cart_page()
 
+    # Verify product exists
+    assert cart.get_cart_item_count() == 1
+
+    cart.verify_product_in_cart("Sauce Labs Backpack")
+
+    # Remove product
+    cart.remove_product("Sauce Labs Backpack")
+
+    # Verify cart is empty
     assert cart.get_cart_item_count() == 0
+
+    print("Product removed successfully")
 
 @pytest.mark.regression
 @pytest.mark.cart
