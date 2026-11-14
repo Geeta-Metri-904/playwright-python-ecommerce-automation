@@ -1,6 +1,7 @@
 
 import pytest
 
+from config.settings import USERNAME, PASSWORD
 from pages.inventory_page import InventoryPage
 
 
@@ -8,10 +9,7 @@ from pages.inventory_page import InventoryPage
 @pytest.mark.login
 def test_valid_login(login_page):
 
-    login_page.login(
-        "standard_user",
-        "secret_sauce"
-    )
+    login_page.login(USERNAME, PASSWORD)
 
     inventory = InventoryPage(login_page.page)
 

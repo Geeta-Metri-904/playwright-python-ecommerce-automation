@@ -32,14 +32,14 @@ def login_page(page, app_url):
 
 
 @pytest.fixture(scope="function")
-def logged_in_page(page, app_url):
+def logged_in_page(page):
     """
     Login using valid credentials and
     return authenticated Playwright page.
     """
     login = LoginPage(page)
 
-    login.open_login_page(app_url)
+    login.open_login_page(BASE_URL)
 
     login.login(USERNAME, PASSWORD)
 
