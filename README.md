@@ -173,7 +173,7 @@ are uploaded as workflow artifacts.
 
 ## Author
 
-QA Automation Engineer
+Geeta Metri ( QA Automation Engineer )
 
 ## License
 
